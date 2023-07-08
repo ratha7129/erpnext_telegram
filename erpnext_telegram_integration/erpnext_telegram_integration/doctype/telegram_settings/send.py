@@ -19,16 +19,8 @@ class ToObject(object):
 	    self.__dict__ = json.loads(data)
 # link :
 #'https://erp.totrox.com/api/method/erpnext_telegram_integration.erpnext_telegram_integration.doctype.telegram_settings.send.send'
-
-
 @frappe.whitelist(allow_guest=True)
-def send():
-    frappe.enqueue(send_queue,queue="long")
-    return "Added To Queue"
-
-
-@frappe.whitelist(allow_guest=True)
-def send_queue(*args, **kwargs):
+def send(*args, **kwargs):
 	
 	r = frappe.request
 	uri = url_fix(r.url.replace("+"," "))
