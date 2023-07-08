@@ -18,8 +18,9 @@ class TelegramSettings(Document):
 
 @frappe.whitelist()
 def send_to_telegram(telegram_user, message, reference_doctype=None, reference_name=None, attachment=None):
-    frappe.enqueue(send_to_telegram_queue(telegram_user, message, reference_doctype, reference_name, attachment),queue="long")
-    return "Added To Queue"
+    frappe.enqueue(
+    send_to_telegram_queue(telegram_user, message, reference_doctype, reference_name, attachment),queue="short",timeout=4000)
+    return "Add To Queue"
 
 @frappe.whitelist()
 def send_to_telegram_queue(telegram_user, message, reference_doctype=None, reference_name=None, attachment=None):
